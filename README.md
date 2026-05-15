@@ -16,7 +16,7 @@ A lightweight, full-stack web application for cafe ordering, table reservations,
 * **Nithilan:** Core Python business logic and reactive backend-to-frontend integration.
 * **Nithish:** FastAPI routers/endpoints setup and JavaScript API calling.
 * **Vurukuti Gowtham Adithya:** HTML structuring and CSS styling.
-* **Sujith:** Advanced CSS styling and JavaScript frontend logic.
+* **Sujeeth:** Advanced CSS styling and JavaScript frontend logic.
 
 ## 3. Project Structure
 * `/backend/` - Contains the FastAPI application, API routers, Python logic, and JSON file storage.
