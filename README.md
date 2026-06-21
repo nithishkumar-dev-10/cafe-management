@@ -1,10 +1,8 @@
 <div align="center">
-<img src="https://capsule-render.vercel.app/api?type=venom&color=0:020817,50:0c1a3a,100:0a4a6e&height=220&section=header&text=CafeMaven&fontSize=70&fontColor=e2f4f7&fontAlignY=40&desc=Cafe%20Order%20%26%20Booking%20System&descColor=7ecfde&descSize=18&descAlignY=62&animation=fadeIn" width="100%"/>
-</div>
 
-<br/>
+# ☕ CafeMaven
 
-<div align="center">
+### Cafe Order & Booking System
 
 ![Python](https://img.shields.io/badge/Python-020817?style=flat-square&logo=python&logoColor=7ecfde)
 ![FastAPI](https://img.shields.io/badge/FastAPI-020817?style=flat-square&logo=fastapi&logoColor=7ecfde)
@@ -45,35 +43,82 @@
 ## 🗂️ Project Structure
 
 ```
-cafemaven/
+cafe-management/
+├── README.md
+├── requirements.txt
+│
 ├── backend/
-│   ├── main.py               # FastAPI app entry point
+│   ├── config.py
+│   ├── database.py
+│   ├── main.py
+│   ├── dependencies.py
+│   ├── menu.json
+│   ├── orders.json
+│   ├── reservations.json
+│   ├── users.json
+│   │
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── menu.py
+│   │   ├── models_user.py
+│   │   ├── order.py
+│   │   └── reservation.py
+│   │
 │   ├── routers/
-│   │   ├── auth.py           # Login & register endpoints
-│   │   ├── menu.py           # Menu CRUD
-│   │   ├── orders.py         # Order management
-│   │   ├── reservations.py   # Table booking
-│   │   └── admin.py          # Admin-only routes
-│   ├── models/               # DB models
-│   ├── schemas/              # Pydantic schemas
-│   ├── database.py           # DB connection
-│   └── auth/
-│       └── jwt_handler.py    # JWT auth logic
+│   │   ├── __init__.py
+│   │   ├── __auth_helper.py
+│   │   ├── admin.py
+│   │   ├── auth.py
+│   │   ├── cart.py
+│   │   ├── menu.py
+│   │   ├── orders.py
+│   │   └── reservations.py
+│   │
+│   ├── schemas/
+│   │   ├── __init__.py
+│   │   ├── menu.py
+│   │   ├── order.py
+│   │   ├── reservation.py
+│   │   └── user.py
+│   │
+│   ├── services/
+│   │   ├── __init__.py
+│   │   ├── auth_service.py
+│   │   ├── menu_service.py
+│   │   ├── order_service.py
+│   │   └── reservation_service.py
+│   │
+│   └── utils/
+│       ├── __init__.py
+│       └── helpers.py
 │
 └── frontend/
-    ├── index.html            # Home page
-    ├── login.html            # Login / Register
-    ├── menu.html             # Menu page
-    ├── cart.html             # Cart page
-    ├── booking.html          # Table booking
-    ├── admin.html            # Admin dashboard
-    ├── css/
-    │   └── style.css
-    └── js/
-        ├── main.js
-        ├── cart.js
-        ├── booking.js
-        └── admin.js
+    ├── components/
+    │   ├── navbar.html
+    │   └── toast.html
+    │
+    ├── pages/
+    │   ├── booking.html
+    │   ├── cart.html
+    │   ├── index.html
+    │   ├── login.html
+    │   ├── menu.html
+    │   ├── orders.html
+    │   └── register.html
+    │
+    ├── scripts/
+    │   ├── api.js
+    │   ├── auth.js
+    │   └── utils.js
+    │
+    └── styles/
+        ├── admin.css
+        ├── auth.css
+        ├── base.css
+        ├── booking.css
+        ├── cart.css
+        ├── menu.css
+        └── navbar.css
 ```
 
 ---
@@ -102,20 +147,26 @@ cafemaven/
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/nithishkumar-dev-10/cafemaven.git
-cd cafemaven
+git clone https://github.com/nithishkumar-dev-10/cafe-management.git
+cd cafe-management
 ```
 
-### 2. Setup backend
+### 2. Setup virtual environment
 
 ```bash
-cd backend
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+```
+
+### 3. Install dependencies
+
+```bash
 pip install -r requirements.txt
 ```
 
-### 3. Configure environment
+### 4. Configure environment
 
-Create a `.env` file in `/backend`:
+Create a `.env` file inside `/backend`:
 
 ```env
 DATABASE_URL=postgresql://user:password@localhost/cafemaven
@@ -123,18 +174,19 @@ SECRET_KEY=your_jwt_secret_key
 ALGORITHM=HS256
 ```
 
-### 4. Run the server
+### 5. Run the server
 
 ```bash
+cd backend
 uvicorn main:app --reload
 ```
 
-API will be live at `http://localhost:8000`  
-Swagger docs at `http://localhost:8000/docs`
+API live at → `http://localhost:8000`  
+Swagger docs → `http://localhost:8000/docs`
 
-### 5. Open frontend
+### 6. Open frontend
 
-Open any `.html` file directly in your browser or serve via Live Server (VS Code).
+Open any file inside `frontend/pages/` in your browser or use VS Code Live Server.
 
 ---
 
@@ -154,6 +206,13 @@ Open any `.html` file directly in your browser or serve via Live Server (VS Code
 | PUT | `/menu/{id}` | Update item (admin) |
 | DELETE | `/menu/{id}` | Delete item (admin) |
 
+### Cart
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/cart` | Get current cart |
+| POST | `/cart` | Add item to cart |
+| DELETE | `/cart/{id}` | Remove item from cart |
+
 ### Orders
 | Method | Endpoint | Description |
 |---|---|---|
@@ -168,6 +227,13 @@ Open any `.html` file directly in your browser or serve via Live Server (VS Code
 | POST | `/reservations` | Book a table |
 | GET | `/reservations` | View all bookings (admin) |
 | DELETE | `/reservations/{id}` | Cancel booking |
+
+### Admin
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/admin/dashboard` | Analytics & overview |
+| GET | `/admin/orders` | All orders |
+| GET | `/admin/reservations` | All reservations |
 
 ---
 
@@ -195,7 +261,7 @@ Reservations  → id, user_id, date, time, guests, status
 
 <div align="center">
 
-[![GitHub](https://img.shields.io/badge/◈_GitHub-0a4a6e?style=for-the-badge&logo=github&logoColor=white)](https://github.com/nithishkumar-dev-10/cafemaven)
+[![GitHub](https://img.shields.io/badge/◈_GitHub-0a4a6e?style=for-the-badge&logo=github&logoColor=white)](https://github.com/nithishkumar-dev-10/cafe-management)
 [![LinkedIn](https://img.shields.io/badge/◈_LinkedIn-0c1a3a?style=for-the-badge&logo=linkedin&logoColor=7ecfde)](https://www.linkedin.com/in/nithish-kumar-saravanan10/)
 [![Portfolio](https://img.shields.io/badge/◈_Portfolio-020817?style=for-the-badge&logoColor=7ecfde)](https://nithishkumar-dev-10.github.io/nithish-dev-portfolio/)
 
@@ -204,5 +270,7 @@ Reservations  → id, user_id, date, time, guests, status
 ---
 
 <div align="center">
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0a4a6e,50:0c1a3a,100:020817&height=110&section=footer&animation=fadeIn" width="100%"/>
+
+![Profile Views](https://komarev.com/ghpvc/?username=nithishkumar-dev-10&color=0a4a6e&style=flat-square&label=PROFILE+VIEWS)
+
 </div>
